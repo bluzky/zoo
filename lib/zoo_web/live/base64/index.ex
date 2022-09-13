@@ -1,54 +1,29 @@
 defmodule ZooWeb.Base64Live.Index do
   use ZooWeb, :live_view
 
-  def render(assigns) do
-    ~H"""
-    <h1>Front Porch Light</h1>
-    <div class="meter">
-    <span style={"width: #{@brightness}%"}>
-    <%= @brightness %>%
-    </span>
-    </div>
-
-    <button phx-click="off">
-    Off
-    </button>
-
-    <button phx-click="on">
-    On
-    </button>
-
-    <button phx-click="down">
-    Down
-    </button>
-
-    <button phx-click="up">
-    Up
-    </button>
-    """
-  end
-
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :brightness, 10)}
+    {:ok, assign(socket, input: nil, output: nil, error: nil)}
   end
 
-  def handle_event("on", _, socket) do
-    socket = assign(socket, :brightness, 100)
+  def handle_event("input_changed", %{"input" => input}, socket) do
+    {:noreply, assign(socket, :input, input)}
+  end
+
+  def handle_event("encode", _session, socket) do
+    input = socket.assigns.input || ""
+    socket = assign(socket, :output, Base.encode64(input))
     {:noreply, socket}
   end
 
-  def handle_event("off", _, socket) do
-    socket = assign(socket, :brightness, 0)
-    {:noreply, socket}
-  end
+  def handle_event("decode", _, socket) do
+    input = socket.assigns.input
 
-  def handle_event("down", _, socket) do
-    socket = update(socket, :brightness, &max(&1 - 10, 0))
-    {:noreply, socket}
-  end
+    case Base.decode64(input) do
+      {:ok, output} ->
+        {:noreply, assign(socket, :output, output)}
 
-  def handle_event("up", _, socket) do
-    socket = update(socket, :brightness, &min(&1 + 10, 100))
-    {:noreply, socket}
+      _ ->
+        {:noreply, assign(socket, output: nil, error: "invalid base64 string")}
+    end
   end
 end

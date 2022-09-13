@@ -1,0 +1,15 @@
+{
+  "name": "zoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alpinejs/morph": "^3.10.3",
+    "alpinejs": "^3.10.3"
+  }
+}

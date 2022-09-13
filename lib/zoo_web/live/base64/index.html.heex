@@ -1,0 +1,66 @@
+<div class="px-4 py-12 mx-auto max-w-screen-xl space-y-8">
+  <div class="space-y-4"          x-data="{input: null}">
+    <h2 class="text-lg font-bold sm:text-xl">Base 64 encode/decode online</h2>
+    
+    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2">
+      <div class="relative block">
+        <div class="">
+          <label class="sr-only" for="message">Input</label>
+          <form phx-change="input_changed">
+          <textarea
+            class="w-full p-3 text-sm border-gray-200 rounded-lg"
+            placeholder="Input text"
+            rows="8"
+            id="input"
+            name="input"
+            x-model="input"
+            ><%= @input %> </textarea>
+          </form>
+
+          <%= if @error do %>
+          <div
+            class="p-4 text-red-700 border rounded border-red-900/10 bg-red-50"
+            role="alert"
+            >
+            <strong class="text-sm font-medium"><%= @error %> </strong>
+          </div>
+          <% end %>
+
+
+        </div>
+      </div>
+
+      <div class="relative block">
+        <div class="">
+          <label class="sr-only" for="message">Output</label>
+          <textarea
+            class="w-full p-3 text-sm border-gray-200 rounded-lg"
+            placeholder="Your output here"
+            rows="8"
+            id="output"
+            readonly
+            ><%= @output %></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+
+      <button class="inline-block px-12 py-3 text-sm font-medium text-white bg-indigo-600 border border-indigo-600 rounded active:text-indigo-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring"  phx-click="encode">
+        Encode
+      </button>
+
+      <button class="inline-block px-12 py-3 text-sm font-medium text-indigo-600 border border-indigo-600 rounded hover:bg-indigo-600 hover:text-white active:bg-indigo-500 focus:outline-none focus:ring"  phx-click="decode">
+        Decode
+      </button>
+
+      <button class="inline-block px-12 py-3 text-sm font-medium text-indigo-600 border border-indigo-600 rounded hover:bg-indigo-600 hover:text-white active:bg-indigo-500 focus:outline-none focus:ring" x-on:click="copyToClipboard('#output')">
+        Copy output
+      </button>
+
+
+    </div>
+  </div>
+
+</div>
