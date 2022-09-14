@@ -61,7 +61,6 @@ liveSocket.connect();
 window.liveSocket = liveSocket;
 
 window.copyToClipboard = function (target) {
-  console.log("hello");
   const copyText = document.querySelector(target);
 
   // Select the text field
