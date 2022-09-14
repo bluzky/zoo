@@ -6,6 +6,8 @@ git reset --hard origin/main
 
 export MIX_ENV=prod
 
+mix deps.get
+mix compile --warnings-as-errors
 mix assets.deploy
 mix release
 
