@@ -1,6 +1,6 @@
 # !/bin/bash
 
-. .env
+source .env
 
 git checkout main
 git fetch
