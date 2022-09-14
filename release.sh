@@ -1,8 +1,8 @@
 # !/bin/bash
 
-git checkout master
+git checkout main
 git fetch
-git reset --hard origin/master
+git reset --hard origin/main
 
 export MIX_ENV=prod
 
