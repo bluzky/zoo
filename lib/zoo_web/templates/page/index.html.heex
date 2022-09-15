@@ -14,12 +14,23 @@
             <div class="space-y-4">
                 <h2 class="text-lg font-bold sm:text-xl">Dev tools</h2>
                 <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+                  
                     <a class="relative block group" href={ Routes.live_path(@conn, ZooWeb.Base64Live.Index) }>
                         <span class="absolute inset-0 border-2 border-black border-dashed rounded-lg" aria-hidden="true"></span>
-                        <div class="bg-white border-2 border-black rounded-lg transition group-hover:-translate-x-2 group-hover:-translate-y-2">
+                        <div class="bg-white border-2 border-black rounded-lg transition group-hover:-translate-x-2 group-hover:-translate-y-2 h-full">
                             <div class="p-6">
                                 <span class="text-xl" role="img" aria-hidden="true">🚨</span>
                                 <p class="mt-4 text-lg font-medium">Base64 encode/decode</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="relative block group" href={ Routes.live_path(@conn, ZooWeb.BcryptLive.Index) }>
+                        <span class="absolute inset-0 border-2 border-black border-dashed rounded-lg" aria-hidden="true"></span>
+                        <div class="bg-white border-2 border-black rounded-lg transition group-hover:-translate-x-2 group-hover:-translate-y-2 h-full">
+                            <div class="p-6">
+                                <span class="text-xl" role="img" aria-hidden="true">🚨</span>
+                                <p class="mt-4 text-lg font-medium">Bcrypt hash generator/checker</p>
                             </div>
                         </div>
                     </a>

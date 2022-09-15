@@ -19,6 +19,7 @@ defmodule ZooWeb.Router do
 
     get "/", PageController, :index
     live "/base64", Base64Live.Index
+    live "/bcrypt", BcryptLive.Index
   end
 
   # Other scopes may use custom stacks.
