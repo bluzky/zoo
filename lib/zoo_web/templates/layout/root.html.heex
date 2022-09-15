@@ -7,6 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content={csrf_token_value()}>
     <%= live_title_tag assigns[:page_title] || "Zoo", suffix: " · Phoenix Framework" %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGS0F20GY6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WGS0F20GY6');
+    </script>
+
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
 </head>
@@ -48,7 +61,7 @@
         </div>
     </header>
     <main role="main">
-          <%= @inner_content %>
+        <%= @inner_content %>
 
 
     </main>
