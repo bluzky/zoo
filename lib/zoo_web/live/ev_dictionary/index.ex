@@ -1,40 +1,9 @@
 defmodule ZooWeb.EvDictionaryLive.Index do
   use ZooWeb, :live_view
+  alias Zoo.EvDictionary.DictionaryService
 
-  @result %{
-    word: "hello",
-    pronunciation: "hello /hello/",
-    groups: [
-      %{
-        type: "noun",
-        list: [
-          %{
-            meaning: "xin chao",
-            examples: [["hello you", "chao ban"], ["hello word", "chao the gioi"]]
-          },
-          %{
-            meaning: "xin chao",
-            examples: [["hello you", "chao ban"], ["hello word", "chao the gioi"]]
-          },
-          %{
-            meaning: "xin chao",
-            examples: [["hello you", "chao ban"], ["hello word", "chao the gioi"]]
-          }
-        ]
-      },
-      %{
-        type: "noun",
-        list: [
-          %{
-            meaning: "xin chao",
-            examples: [["hello you", "chao ban"], ["hello word", "chao the gioi"]]
-          }
-        ]
-      }
-    ]
-  }
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, keyword: nil, result: @result, suggestions: [], searching: false)}
+    {:ok, assign(socket, keyword: nil, result: nil, suggestions: [], searching: false)}
   end
 
   def handle_event("input_changed", %{"keyword" => keyword} = session, socket) do
@@ -54,8 +23,17 @@ defmodule ZooWeb.EvDictionaryLive.Index do
   end
 
   def handle_event("search", _session, socket) do
-    keyword = socket.assigns.keyword || ""
+    keyword = String.trim(socket.assigns.keyword || "")
 
-    {:noreply, assign(socket, result: @result, searching: false)}
+    DictionaryService.lookup(keyword)
+    |> Zoo.Helpers.StructHelper.to_map()
+    # |> IO.inspect()
+    |> case do
+      {:error, _} ->
+        {:noreply, assign(socket, result: nil, searching: false)}
+
+      {:ok, result} ->
+        {:noreply, assign(socket, result: result, searching: false)}
+    end
   end
 end
