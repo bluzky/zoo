@@ -22,6 +22,7 @@ defmodule ZooWeb.Router do
     live "/bcrypt", BcryptLive.Index
     live "/html-to-markdown", HtmlToMarkdownLive.Index
     live "/hashtag-generator", HashtagGeneratorLive.Index
+    live "/dictionary", EvDictionaryLive.Index
   end
 
   # Other scopes may use custom stacks.

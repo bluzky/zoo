@@ -36,7 +36,7 @@ defmodule ZooWeb.HashtagGeneratorLive.Index do
   end
 
   defp text_to_hashtag(text, options) do
-    IO.inspect(options)
+    # IO.inspect(options)
     text = String.trim(text)
 
     text =
