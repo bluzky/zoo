@@ -15,7 +15,10 @@ defmodule ZooWeb.EvDictionaryLive.Index do
   def handle_event("input_changed", %{"keyword" => term}, socket) do
     suggestions =
       if String.length(term) > 2 do
-        DictionaryService.suggest(term)
+        term
+        |> String.downcase()
+        |> String.trim()
+        |> DictionaryService.suggest()
         |> Enum.sort_by(&String.length/1)
         |> Enum.take(10)
         |> Enum.map(fn word ->
@@ -38,9 +41,9 @@ defmodule ZooWeb.EvDictionaryLive.Index do
   end
 
   defp do_search(socket) do
-    keyword = String.trim(socket.assigns.keyword || "")
-
-    DictionaryService.lookup(keyword)
+    String.trim(socket.assigns.keyword || "")
+    |> String.downcase()
+    |> DictionaryService.lookup()
     |> Zoo.Helpers.StructHelper.to_map()
     # |> IO.inspect()
     |> case do
