@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content={csrf_token_value()}>
-    <%= live_title_tag assigns[:page_title] || "Zoo", suffix: " · Phoenix Framework" %>
+    <.live_title><%= assigns[:page_title] || "Zoo" %> </.live_title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGS0F20GY6"></script>
     <script>

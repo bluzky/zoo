@@ -18,7 +18,7 @@ defmodule Zoo.EvDictionary.DictionaryService do
 
     File.stream!(path, [:compressed])
     |> Stream.with_index()
-    |> Stream.map(fn {line, index} ->
+    |> Stream.map(fn {line, _index} ->
       # IO.inspect(index)
       StardictParser.parse(line)
     end)
