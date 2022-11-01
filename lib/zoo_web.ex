@@ -45,7 +45,7 @@ defmodule ZooWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ZooWeb.LayoutView, "live.html"}
+        layout: {ZooWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
@@ -89,11 +89,9 @@ defmodule ZooWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
-      import Phoenix.LiveView.Helpers
-
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+      import Phoenix.Component
 
       import ZooWeb.ErrorHelpers
       import ZooWeb.Gettext
