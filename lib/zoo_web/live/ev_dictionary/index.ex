@@ -18,17 +18,10 @@ defmodule ZooWeb.EvDictionaryLive.Index do
         term
         |> String.downcase()
         |> String.trim()
-        |> DictionaryService.suggest()
-        |> Enum.sort_by(&String.length/1)
-        |> Enum.take(10)
-        |> Enum.map(fn word ->
-          case DictionaryService.lookup(word) do
-            {:ok, term} -> term
-            _ -> nil
-          end
+        |> Zoo.Dictionary.search_vocabulary()
+        |> Enum.map(fn item ->
+          Map.take(item, [:term, :phonetic, :brief_meaning])
         end)
-        |> Enum.reject(&is_nil/1)
-        |> render_suggestion()
       else
         []
       end
@@ -41,40 +34,22 @@ defmodule ZooWeb.EvDictionaryLive.Index do
   end
 
   defp do_search(socket) do
-    String.trim(socket.assigns.keyword || "")
-    |> String.downcase()
-    |> DictionaryService.lookup()
-    |> Zoo.Helpers.StructHelper.to_map()
-    # |> IO.inspect()
-    |> case do
-      {:error, _} ->
-        assign(socket, result: nil, searching: false)
+    term = String.trim(socket.assigns.keyword || "")
 
-      {:ok, result} ->
-        assign(socket, result: result, searching: false)
+    if String.length(term) > 0 do
+      term
+      |> String.downcase()
+      |> Zoo.Dictionary.get_vocabolary()
+      |> case do
+        {:error, _} ->
+          assign(socket, result: nil, searching: false)
+
+        {:ok, result} ->
+          result = Zoo.Helpers.StructHelper.to_map(result)
+          assign(socket, result: result, searching: false)
+      end
+    else
+      assign(socket, result: nil, searching: false)
     end
-  end
-
-  defp render_suggestion(terms) do
-    Enum.map(terms, fn term ->
-      section = List.first(term.sections)
-      meaning = List.first(section.meanings)
-
-      meaning =
-        if is_nil(meaning) do
-          word_class = List.first(section.word_classes)
-
-          if word_class do
-            List.first(word_class.meanings)
-          end
-        else
-          meaning
-        end
-
-      %{
-        term: term.term,
-        translation: (meaning && meaning.translation) || nil
-      }
-    end)
   end
 end

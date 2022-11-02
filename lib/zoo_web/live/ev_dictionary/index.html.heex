@@ -17,7 +17,7 @@
           <%= for item <- @suggestions do %>
               <.link patch={Routes.live_path(@socket, ZooWeb.EvDictionaryLive.Index, %{term: item.term})} class="block p-2 px-4 cursor-pointer hover:bg-blue-50">
                 <div class="font-bold"><%= item.term %></div>
-                <span class="ml-2 text-sm text-gray-500"><%= item.translation %></span>
+                <span class="ml-2 text-sm text-gray-500"><%= item.brief_meaning %></span>
               </.link>
               <% end %>
 
@@ -31,10 +31,10 @@
       <content class="flex flex-col">
         <section class="mb-6">
           <h4 class="font-bold text-orange-500 text-xl"><%= @result.term %></h4>
-          <h5 class="font-bold italic text-lg text-slate-700"><%= @result.pronunciation %></h5>
+          <h5 class="font-bold italic text-lg text-slate-700"><%= @result.phonetic %></h5>
         </section>
 
-        <%= for section <- @result.sections do %>
+        <%= for section <- @result.details do %>
             <h5 class="italic text-blue-500 font-bold"><%= section.name %></h5>
             <%= for word_class <- section.word_classes do %>
                 <section class="mb-3">

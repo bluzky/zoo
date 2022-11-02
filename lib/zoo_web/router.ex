@@ -25,6 +25,15 @@ defmodule ZooWeb.Router do
     live "/dictionary", EvDictionaryLive.Index
   end
 
+  scope "/api", ZooWeb do
+    pipe_through [:api]
+
+    scope "/dictionary" do
+      get "/search", EvDictionaryController, :search
+      get "/get", EvDictionaryController, :get
+    end
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ZooWeb do
   #   pipe_through :api
