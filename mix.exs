@@ -34,9 +34,9 @@ defmodule Zoo.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.12"},
-      # {:phoenix_ecto, "~> 4.4"},
+      {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
-      # {:postgrex, ">= 0.0.0"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.2"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.18.3"},
@@ -52,7 +52,8 @@ defmodule Zoo.MixProject do
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:bcrypt_elixir, "~> 3.0"},
-      {:slugger, "~> 0.3.0"}
+      {:slugger, "~> 0.3.0"},
+      {:filtery, "~> 0.2.3"}
     ]
   end
 

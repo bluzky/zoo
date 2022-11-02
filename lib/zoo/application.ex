@@ -9,20 +9,20 @@ defmodule Zoo.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      # Zoo.Repo,
+      Zoo.Repo,
       # Start the Telemetry supervisor
       ZooWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Zoo.PubSub},
       # Start the Endpoint (http/https)
-      ZooWeb.Endpoint,
-      Zoo.EvDictionary.Bucket,
-      Zoo.EvDictionary.Index,
-      %{
-        id: Zoo.EvDictionary.DictionaryService,
-        start: {Zoo.EvDictionary.DictionaryService, :start_link, []},
-        restart: :temporary
-      }
+      ZooWeb.Endpoint
+      # Zoo.EvDictionary.Bucket,
+      # Zoo.EvDictionary.Index,
+      # %{
+      #   id: Zoo.EvDictionary.DictionaryService,
+      #   start: {Zoo.EvDictionary.DictionaryService, :start_link, []},
+      #   restart: :temporary
+      # }
       # Start a worker by calling: Zoo.Worker.start_link(arg)
       # {Zoo.Worker, arg}
     ]
