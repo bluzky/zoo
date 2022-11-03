@@ -1,11 +1,10 @@
 defmodule ZooWeb.EvDictionaryController do
   use ZooWeb, :controller
-  alias Zoo.EvDictionary.DictionaryService
 
   action_fallback ZooWeb.FallbackController
 
-  def get(conn, %{"keyword" => keyword}) do
-    term = String.trim(keyword || "")
+  def get(conn, %{"term" => term}) do
+    term = String.trim(term || "")
 
     if String.length(term) > 0 do
       term
@@ -23,7 +22,7 @@ defmodule ZooWeb.EvDictionaryController do
     end
   end
 
-  def search(conn, %{"keyword" => term}) do
+  def search(conn, %{"term" => term}) do
     suggestions =
       if String.length(term) > 2 do
         term

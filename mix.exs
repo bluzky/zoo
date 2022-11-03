@@ -53,7 +53,8 @@ defmodule Zoo.MixProject do
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:bcrypt_elixir, "~> 3.0"},
       {:slugger, "~> 0.3.0"},
-      {:filtery, "~> 0.2.3"}
+      {:filtery, "~> 0.2.3"},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 
