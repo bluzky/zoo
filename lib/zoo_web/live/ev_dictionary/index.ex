@@ -1,18 +1,17 @@
 defmodule ZooWeb.EvDictionaryLive.Index do
   use ZooWeb, :live_view
-  alias Zoo.EvDictionary.DictionaryService
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, keyword: nil, result: nil, suggestions: [], searching: false)}
+    {:ok, assign(socket, term: nil, result: nil, suggestions: [], searching: false)}
   end
 
   def handle_params(params, _uri, socket) do
     term = params["term"]
 
-    {:noreply, do_search(assign(socket, keyword: term))}
+    {:noreply, do_search(assign(socket, term: term))}
   end
 
-  def handle_event("input_changed", %{"keyword" => term}, socket) do
+  def handle_event("input_changed", %{"term" => term}, socket) do
     suggestions =
       if String.length(term) > 2 do
         term
@@ -26,7 +25,7 @@ defmodule ZooWeb.EvDictionaryLive.Index do
         []
       end
 
-    {:noreply, assign(socket, keyword: term, suggestions: suggestions, searching: true)}
+    {:noreply, assign(socket, term: term, suggestions: suggestions, searching: true)}
   end
 
   def handle_event("search", _session, socket) do
@@ -34,7 +33,7 @@ defmodule ZooWeb.EvDictionaryLive.Index do
   end
 
   defp do_search(socket) do
-    term = String.trim(socket.assigns.keyword || "")
+    term = String.trim(socket.assigns.term || "")
 
     if String.length(term) > 0 do
       term
