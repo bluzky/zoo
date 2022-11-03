@@ -3,7 +3,7 @@ defmodule ZooWeb.EvDictionaryController do
 
   action_fallback ZooWeb.FallbackController
 
-  def get(conn, %{"term" => term}) do
+  def get(_conn, %{"term" => term}) do
     term = String.trim(term || "")
 
     if String.length(term) > 0 do
@@ -22,7 +22,7 @@ defmodule ZooWeb.EvDictionaryController do
     end
   end
 
-  def search(conn, %{"term" => term}) do
+  def search(_conn, %{"term" => term}) do
     suggestions =
       if String.length(term) > 2 do
         term
@@ -37,28 +37,5 @@ defmodule ZooWeb.EvDictionaryController do
       end
 
     {:ok, suggestions}
-  end
-
-  defp render_suggestion(terms) do
-    Enum.map(terms, fn term ->
-      section = List.first(term.sections)
-      meaning = List.first(section.meanings)
-
-      meaning =
-        if is_nil(meaning) do
-          word_class = List.first(section.word_classes)
-
-          if word_class do
-            List.first(word_class.meanings)
-          end
-        else
-          meaning
-        end
-
-      %{
-        term: term.term,
-        translation: (meaning && meaning.translation) || nil
-      }
-    end)
   end
 end
