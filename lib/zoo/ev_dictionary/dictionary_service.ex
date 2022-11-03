@@ -1,8 +1,5 @@
 defmodule Zoo.EvDictionary.DictionaryService do
-  alias Zoo.EvDictionary.Index
-  alias Zoo.EvDictionary.Bucket
   alias Zoo.EvDictionary.StardictParser
-  alias Zoo.EvDictionary.Term
   require Logger
   @dict_path "priv/data/stardict_en_vi.txt.gz"
 
