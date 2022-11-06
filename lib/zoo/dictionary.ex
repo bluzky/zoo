@@ -36,7 +36,24 @@ defmodule Zoo.Dictionary do
 
   """
   def get_vocabolary(term) do
-    Repo.find(Vocabolary, %{term: term})
+    # search by both singular and plural form.
+    # which found first is used
+    terms = [term, Zoo.Dictionary.Inflector.singularize(term)] |> Enum.uniq()
+
+    results =
+      Repo.list(Vocabolary, %{term: terms})
+      |> Enum.into(%{}, &{&1.term, &1})
+
+    found =
+      Enum.find_value(terms, fn term ->
+        results[term]
+      end)
+
+    if found do
+      {:ok, found}
+    else
+      {:error, :not_found}
+    end
   end
 
   def search_vocabulary(term, limit \\ 5) do
