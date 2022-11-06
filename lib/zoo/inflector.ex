@@ -1,27 +1,25 @@
 defmodule Zoo.Dictionary.Inflector do
-  @singular_uninflected Application.get_env(:inflectorex, :singular_uniflected, []) ++
-                          [
-                            ~r/(?i)(^(?:.*[nrlm]ese))$/,
-                            ~r/(?i)(^(?:.*deer))$/,
-                            ~r/(?i)(^(?:.*fish))$/,
-                            ~r/(?i)(^(?:.*measles))$/,
-                            ~r/(?i)(^(?:.*ois))$/,
-                            ~r/(?i)(^(?:.*pox))$/,
-                            ~r/(?i)(^(?:.*sheep))$/,
-                            ~r/(?i)(^(?:.*ss))$/
-                          ]
+  @singular_uninflected [
+    ~r/(?i)(^(?:.*[nrlm]ese))$/,
+    ~r/(?i)(^(?:.*deer))$/,
+    ~r/(?i)(^(?:.*fish))$/,
+    ~r/(?i)(^(?:.*measles))$/,
+    ~r/(?i)(^(?:.*ois))$/,
+    ~r/(?i)(^(?:.*pox))$/,
+    ~r/(?i)(^(?:.*sheep))$/,
+    ~r/(?i)(^(?:.*ss))$/
+  ]
 
-  @plural_uninflected Application.get_env(:inflectorex, :plural_uniflected, []) ++
-                        [
-                          ~r/(?i)(^(?:.*[nrlm]ese))$/,
-                          ~r/(?i)(^(?:.*deer))$/,
-                          ~r/(?i)(^(?:.*fish))$/,
-                          ~r/(?i)(^(?:.*measles))$/,
-                          ~r/(?i)(^(?:.*ois))$/,
-                          ~r/(?i)(^(?:.*pox))$/,
-                          ~r/(?i)(^(?:.*sheep))$/,
-                          ~r/(?i)(^(?:people))$/
-                        ]
+  @plural_uninflected [
+    ~r/(?i)(^(?:.*[nrlm]ese))$/,
+    ~r/(?i)(^(?:.*deer))$/,
+    ~r/(?i)(^(?:.*fish))$/,
+    ~r/(?i)(^(?:.*measles))$/,
+    ~r/(?i)(^(?:.*ois))$/,
+    ~r/(?i)(^(?:.*pox))$/,
+    ~r/(?i)(^(?:.*sheep))$/,
+    ~r/(?i)(^(?:people))$/
+  ]
 
   @uninflected ~r/((?i)(^(?:Amoyese))$
                     |(?i)(^(?:bison))$
